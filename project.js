@@ -13,8 +13,18 @@
 const prompt = require('prompt-sync')();
 
 const deposit = () => {
+  // used a while loop to make the deposit amount option continous 
+  while (true){
   const depositAmount = prompt('Enter deposit amount: ')
+  const numberDepositAmount = parseFloat(depositAmount);
 
+  if (isNaN(numberDepositAmount) || numberDepositAmount <= 0){
+    console.log('Invalid deposit amount. Please try again.')
+    // the else statement breaks the while loop
+  }else{ 
+    return numberDepositAmount;
+  }
+}
 }
 
-deposit();
+const depositAmount = deposit();

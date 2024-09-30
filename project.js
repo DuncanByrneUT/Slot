@@ -6,11 +6,35 @@
 // 6. give user their money
 // 7. play again
 
-// function deposit(){
-//   return 1
-// }
+
 
 const prompt = require('prompt-sync')();
+
+// spinning slot
+const ROWS = 3;
+const COLS = 3;
+
+const SYMBOLS_COUNT = {
+  "A":2,
+  "B":4,
+  "C":6,
+  "D":8
+}
+
+const SYMBOL_VALUES = {
+  "A":5,
+  "B":4,
+  "C":3,
+  "D":2
+}
+
+
+
+
+
+
+
+
 
 const deposit = () => {
   // used a while loop to make the deposit amount option continous 
@@ -60,6 +84,33 @@ const getBet = (balance, lines) => {
 
 }
 
+const spin = () =>{
+  const symbols = [];
+  for (const[symbol, count] of Object.entries(SYMBOLS_COUNT)){
+    for(let i =0; i < count; i++){
+      symbols.push(symbol);
+    }
+
+  }
+
+const reels =[[], [], []];
+for (let i =0; i < COLS; i++){
+  const reelSymbols = [...symbols];
+  for (let j = 0; j < ROWS; j++){
+    // generating a random index using .random, to generate a random number between 0 and 1 
+    // and being multiplied by whatever the length of our symbol is
+    // math.floor -> used to round randomIndex number down, to the nearest or lowest whole number
+    const randomIndex = Math.floor(Math.random() * reelSymbols.length)
+    const selectedSymbol =reelSymbols[randomIndex];
+    reels[i].push(selectedSymbol);
+    reelSymbols.splice(randomIndex, 1);
+
+  }
+}
+return reels;
+};
+const reels = spin();
+console.log(reels);
 let balance = deposit();
 const numberOfLines = getNumberOfLines();
 const bet = getBet(balance, numberOfLines);
